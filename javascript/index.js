@@ -1,6 +1,8 @@
 const LinkedList = require('./linkedlist')
 const Stack = require('./stack')
 const { CirclularQueue } = require('./queue')
+const Sorts = require('./sort')
+const BinarySearch = require('./binary-search')
 
 function llTest () {
   // const list = new LinkedList()
@@ -222,6 +224,45 @@ function queueTest () {
   queue.print()
 }
 
+function sortTest () {
+  let arr = [22, 5, 11, 41, 45, 26, 29, 10, 7, 8, 30, 27, 42, 43, 40]
+
+  function bubbleTest () {
+    Sorts.bubble(arr)
+  }
+  
+  function insertTest () {
+    Sorts.insert(arr, true)
+  }
+
+  function selectionTest () {
+    Sorts.selection(arr)
+  }
+
+  function mergeTest () {
+    Sorts.merge(arr, true)
+  }
+
+  function quickTest () {
+    Sorts.quick(arr)
+  }
+
+  function bucketTest () {
+    Sorts.bucket(arr, bucketSize = 5, true)
+  }
+
+  function countingTest () {
+    arr = [2, 5, 3, 0, 2, 3, 0, 3]
+    Sorts.counting(arr)
+  }
+
+}
+
+function binarySearchTest () {
+  const arr = [1, 3, 4, 5, 6, 8, 8, 8, 11, 18]
+  console.log(BinarySearch.withArray(arr, 8, 'last-less'))
+}
+
 void function() {
-  queueTest()
+  binarySearchTest()
 }()
