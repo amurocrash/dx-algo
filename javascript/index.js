@@ -1,8 +1,10 @@
-const LinkedList = require('./linkedlist')
+const { LinkedList, DLinkedList } = require('./linkedlist')
 const Stack = require('./stack')
 const { CirclularQueue } = require('./queue')
 const Sorts = require('./sort')
 const BinarySearch = require('./binary-search')
+const SkipList = require('./skiplist')
+const { HashTable, HashMap } = require('./hashtable')
 
 function llTest () {
   // const list = new LinkedList()
@@ -33,9 +35,17 @@ function llTest () {
   // LinkedList.merge(list1, list2)
   // list1.print()
 
-  const list = new LinkedList()
-  list.fromArray([1, 2, 3, 4, 5])
-  console.log(list.findMiddle())
+  // const list = new LinkedList()
+  // list.fromArray([1, 2, 3, 4, 5])
+  // console.log(list.findMiddle())
+
+  const arr = [4, 1, 3, 5, 2]
+  const list = DLinkedList.fromArray(arr)
+  list.print()
+  list.insert(6)
+  list.insert(0, 4, true)
+  list.insert(7, 3)
+  list.print()
 }
 
 function stackTest () {
@@ -263,6 +273,38 @@ function binarySearchTest () {
   console.log(BinarySearch.withArray(arr, 8, 'last-less'))
 }
 
+function skipListTest () {
+  
+  // const list = new SkipList()
+  // for (let i = 1; i <= 20; i++) {
+  //   list.add(i)
+  // }
+  
+  const arr = [1, 6, 9, 3, 5, 7, 4, 8]
+  const list = SkipList.fromArray(arr)
+
+  list.print()
+}
+
+function hashTableTest () {
+  const keys = ['amuro', 'kamiu', 'char', 'judo', 'haman']
+
+  // const table = new HashTable()
+  // for (let i = 0; i < keys.length; i++) {
+  //   table.set(keys[i], keys[i])
+  // }
+  // table.print()
+  const map = new HashMap()
+  for (let i = 0; i < 24; i++) {
+    map.set(i.toString(), 'dx' + i)
+  }
+
+  map.print()
+  // debugger
+  console.log(map.get('15'))
+  console.log(map.get('20'))
+}
+
 void function() {
-  binarySearchTest()
+  hashTableTest()
 }()

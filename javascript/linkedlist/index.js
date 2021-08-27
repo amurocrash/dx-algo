@@ -228,4 +228,137 @@ class LinkedList {
   }
 }
 
-module.exports = LinkedList
+class DNode {
+  constructor (e, prev, next) {
+    this.e = e
+    this.prev = prev
+    this.next = next
+  }
+}
+
+class DLinkedList {
+  static fromArray (arr) {
+    const list = new DLinkedList()
+    if (arr && arr.length > 0) {
+      let curNode = list.header
+      arr.forEach(e => {
+        if (!list.header) {
+          curNode = list.header = new DNode(e)
+        } else {
+          curNode.next = new DNode(e, curNode)
+          curNode = curNode.next
+        }
+      })
+    }
+
+    return list
+  }
+
+  forEach (cb) {
+    let curNode = this.header
+    let index = 0
+    while(curNode) {
+      const r = cb(curNode, index++)
+      if (r === true) {
+        break
+      } else {
+        curNode = curNode.next
+      }
+    }
+  }
+
+  insert (e, target, isBefore = false) {
+    // 直接插入链表尾部
+    if (!target) {
+      const tail = this.findTail()
+      if (!tail) {
+        this.header = new DNode(e)
+      } else {
+        tail.next = new DNode(e, tail)
+      }
+      return
+    }
+
+    // 找到对应节点，根据参数插入前面或者后面
+    const nodeForInsert = this.find(target)
+    if (nodeForInsert) {
+      if (isBefore) {
+        const beforeNode = nodeForInsert.prev
+        if (!beforeNode) {
+          this.header = new DNode(e, null, nodeForInsert)
+        } else {
+          beforeNode.next = new DNode(e, beforeNode, nodeForInsert)
+        }
+      } else {
+        const afterNode = nodeForInsert.next
+        nodeForInsert.next = new DNode(e, nodeForInsert, afterNode)
+      }
+    }
+  }
+
+  remove (e) {
+    const nodeForRemove = this.find(e)
+    if (nodeForRemove) {
+      const prev = nodeForRemove.prev
+      if (!prev) {
+        this.header = this.header.next
+      } else {
+        const next = this.nodeForRemove.next
+        prev.next = next
+        next.prev = prev
+      }
+    }
+  }
+
+  update (e, target) {
+    const node = this.find(target)
+    if (node) {
+      node.e = e
+    }
+  }
+
+  find (target) {
+    let findNode
+    this.forEach(node => {
+      if (node.e === target) {
+        findNode = node
+        return true
+      }
+    })
+
+    return findNode
+  }
+
+  findTail () {
+    if (!this.header) {
+      return null
+    }
+    let tail
+    this.forEach(node => {
+      if (!node.next) {
+        tail = node
+      }
+    })
+
+    return tail
+  } 
+
+  print () {
+    let str = ''
+    this.forEach(node => {
+      str += `${node.e}->`
+    })
+
+    if (str === '') {
+      console.log('list is empty')
+    } else {
+      str += 'null'
+      console.log(str)
+    }
+  }
+}
+
+module.exports = {
+  LinkedList,
+  DLinkedList
+}
