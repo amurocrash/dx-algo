@@ -5,6 +5,10 @@ const Sorts = require('./sort')
 const BinarySearch = require('./binary-search')
 const SkipList = require('./skiplist')
 const { HashTable, HashMap } = require('./hashtable')
+const { BinaryTree, BinarySearchTree } = require('./tree')
+const { Heap } = require('./heap')
+
+const { permutations, cellDivision, findTopK, MedianManager } = require('./extra')
 
 function llTest () {
   // const list = new LinkedList()
@@ -289,22 +293,66 @@ function skipListTest () {
 function hashTableTest () {
   const keys = ['amuro', 'kamiu', 'char', 'judo', 'haman']
 
-  // const table = new HashTable()
-  // for (let i = 0; i < keys.length; i++) {
-  //   table.set(keys[i], keys[i])
-  // }
-  // table.print()
   const map = new HashMap()
   for (let i = 0; i < 24; i++) {
     map.set(i.toString(), 'dx' + i)
   }
 
   map.print()
-  // debugger
   console.log(map.get('15'))
   console.log(map.get('20'))
 }
 
+function treeTest () {
+  function binaryTreeTest () {
+    const tree = BinaryTree.fromArray([1, 2, 3, 4, 5, 6, 7, 8])
+    // tree.bfs(node => {
+    //   console.log(node.e)
+    // })
+    // tree.pre(node => {
+    //   console.log(node.e)
+    // })
+    // tree.in(node => {
+    //   console.log(node.e)
+    // })
+    tree.post(node => {
+      console.log(node.e)
+    })
+  }
+  
+  function binarySearchTreeTest() {
+    // const tree = BinarySearchTree.fromArray([7, 6, 1, 3, 8, 12, 9, 4, 22, 5])
+    const tree = BinarySearchTree.fromArray([4, 1, 8, 7, 10, 9, 11])
+    console.log(tree.toLevels().length)
+  }
+
+  binarySearchTreeTest()
+}
+
+function extraTest () {
+  // console.log(permutations([1, 2, 3, 4]))
+  // console.log(cellDivision(5))
+  // console.log(findTopK([1, 4, 5, 7, 6, 2], 3))
+  const medianMgr = new MedianManager([1, 4, 5, 7, 6, 2])
+  console.log(medianMgr.getValue())
+  medianMgr.add(3)
+  console.log(medianMgr.getValue())
+  medianMgr.add(8)
+  console.log(medianMgr.getValue())
+  medianMgr.add(9)
+  console.log(medianMgr.getValue())
+  medianMgr.add(10)
+  console.log(medianMgr.getValue())
+  medianMgr.add(11)
+  console.log(medianMgr.getValue())
+}
+
+function heapTest () {
+  const heap = Heap.fromArray([1, 4, 5, 7, 6, 2], false)
+  heap.print()
+  console.log(heap.sort())
+}
+
 void function() {
-  hashTableTest()
+  extraTest()
 }()
